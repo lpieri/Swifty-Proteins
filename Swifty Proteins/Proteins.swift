@@ -30,6 +30,7 @@ struct  Protein: Identifiable {
 class   Proteins: ObservableObject {
     
     @Published var proteins: [Protein]
+    @Published var isActive: Bool = false
 
     init(file: String) {
         self.proteins = [Protein]()

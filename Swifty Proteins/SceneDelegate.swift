@@ -21,8 +21,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view that provides the window contents.
         let proteins = Proteins(file: "ressources")
-        let researchView = ResearchProteins().environmentObject(proteins)
-        let contentView = ContentView()
+        let contentView = ContentView().environmentObject(proteins)
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {
