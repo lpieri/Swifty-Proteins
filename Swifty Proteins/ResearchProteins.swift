@@ -10,19 +10,39 @@ import SwiftUI
 
 struct ResearchProteins: View {
     
+    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var proteins: Proteins
     @State private var searchValue: String = ""
     
+    var btnBack: some View {
+        Button(action: {
+            self.proteins.isActive = false
+        }) {
+            HStack {
+                Image(systemName: "chevron.left")
+                    .foregroundColor(.blue)
+                Text("Back")
+            }
+        }
+        
+    }
+    
     var body: some View {
+        /* Code Array */
         NavigationView {
             ZStack {
                 Color("Background").edgesIgnoringSafeArea(.all)
-                VStack {
-                    SearchBar(text: $searchValue)
+                /* Body */
+                VStack (alignment: .leading) {
+                    TextField("Research Proteins", text: $searchValue)
+                        .padding()
+                        .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color.gray))
+                        .shadow(radius: 30)
+                    
                     List {
                         ForEach (proteins.proteins.filter {
                             searchValue.isEmpty ? true : $0.name.contains(searchValue)
-                        }, id: \.name) { protein in
+                        }, id: \.id) { protein in
                             NavigationLink(destination: Text("Proteins")) {
                                 Text(protein.name)
                             }
@@ -31,10 +51,13 @@ struct ResearchProteins: View {
                         UITableView.appearance().backgroundColor = UIColor(named: "Background")
                         UITableView.appearance().separatorColor = UIColor(named: "Shadow")
                         UITableView.appearance().separatorStyle = .singleLine
-                    }
-                }.navigationBarTitle("Proteins", displayMode: .large)
+                    }.id(UUID())
+                }.padding()
+                .navigationBarTitle("Proteins", displayMode: .large)
+                /* Body */
             }
         }
+        /* Code Array */
     }
 }
 

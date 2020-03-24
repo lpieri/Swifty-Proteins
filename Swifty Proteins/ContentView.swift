@@ -14,59 +14,51 @@ struct ContentView: View {
     @State private var isUnlocked = false
     @State private var password: String = ""
     @EnvironmentObject var proteins: Proteins
-//    let localAuthentificationContext = LAContext()
-    
-//    func authenticate() {
-//        let context = LAContext()
-//        var error: NSError?
-//
-//        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
-//            let reason = "Please authenticate yourself to unlock your places."
-//
-//            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authenticationError in
-//
-//                DispatchQueue.main.async {
-//                    if success {
-//                        self.isUnlocked = true
-//                        self.proteins.isActive = true
-//                    } else {
-//                        print(error)
-//                    }
-//                }
-//            }
-//        } else {
-//            print(error)
-//        }
-//    }
     
     var body: some View {
-        /* Code array */
-        NavigationView {
-            ZStack {
-                Color("Background").edgesIgnoringSafeArea(.all)
+        /* Code Array */
+        ZStack {
+            Color("Background").edgesIgnoringSafeArea(.all)
+            if isUnlocked {
+                ResearchProteins()
+            } else {
                 VStack (alignment: .center, spacing: 42) {
-                    
                     Text("Swifty Proteins").font(.largeTitle).fontWeight(.semibold)
-                    SecureField("Password", text: $password).font(.headline).padding()
-                    
                     Button(action: {
-                        self.proteins.isActive = true
+                        self.authenticate()
                     }) {
                         ZStack {
-                            Circle().foregroundColor(Color("Button")).shadow(radius: 5)
-                            Image(systemName: "faceid").font(.system(size: 60)).foregroundColor(Color("Shadow"))
-                        }.frame(width: 121, height: 121)
+                            Circle().foregroundColor(Color("Button")).shadow(radius: 30)
+                            Image(systemName: "faceid").font(.system(size: 42)).foregroundColor(Color("Shadow"))
+                        }.frame(width: 100, height: 100)
                     }
-
-                    NavigationLink(destination: ResearchProteins(), isActive: $proteins.isActive) {
-                        EmptyView()
-                    }
-                    
                 }
             }
         }
-        /* Code array */
+        /* End Code Array */
     }
+    
+    /* Functions */
+    func    authenticate() {
+        let context = LAContext()
+        var error: NSError?
+        
+        if context.canEvaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, error: &error) {
+            let reason = "Please authenticate yourself to unlock your places."
+            context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authentificationError in
+                DispatchQueue.main.async {
+                    if success {
+                        self.isUnlocked = true
+                    } else {
+                        print(authentificationError!)
+                    }
+                }
+            }
+        } else {
+            print(error!)
+        }
+    }
+    /* End Functions */
 }
 
 struct ContentView_Previews: PreviewProvider {
