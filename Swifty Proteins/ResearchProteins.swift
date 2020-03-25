@@ -10,22 +10,8 @@ import SwiftUI
 
 struct ResearchProteins: View {
     
-    @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @EnvironmentObject var proteins: Proteins
     @State private var searchValue: String = ""
-    
-    var btnBack: some View {
-        Button(action: {
-            self.proteins.isActive = false
-        }) {
-            HStack {
-                Image(systemName: "chevron.left")
-                    .foregroundColor(.blue)
-                Text("Back")
-            }
-        }
-        
-    }
     
     var body: some View {
         /* Code Array */
@@ -35,6 +21,7 @@ struct ResearchProteins: View {
                 /* Body */
                 VStack (alignment: .leading) {
                     TextField("Research Proteins", text: $searchValue)
+                        .font(.headline)
                         .padding()
                         .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color.gray))
                         .shadow(radius: 30)
@@ -43,7 +30,7 @@ struct ResearchProteins: View {
                         ForEach (proteins.proteins.filter {
                             searchValue.isEmpty ? true : $0.name.contains(searchValue)
                         }, id: \.id) { protein in
-                            NavigationLink(destination: Text("Proteins")) {
+                            NavigationLink(destination: ProteinView(protein: protein)) {
                                 Text(protein.name)
                             }
                         }.listRowBackground(Color("Background"))

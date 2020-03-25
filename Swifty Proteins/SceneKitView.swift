@@ -7,15 +7,31 @@
 //
 
 import SwiftUI
-import UIKit
+import SceneKit
 
 struct SceneKitView: UIViewRepresentable {
     
-    func    makeUIView(context: Context) -> UIView {
-        return UIStoryboard(name: "DemoScene.scn", bundle: Bundle.main).instantiateInitialViewController()!.view
+    let scene = SCNScene(named: "art.scnassets/ship.scn")
+    
+    func    makeUIView(context: Context) -> SCNView {
+        let sceneView = SCNView()
+        sceneView.scene = scene
+        return sceneView
     }
     
-    func    updateUIView(_ uiView: UIView, context: Context) {
+    func    updateUIView(_ scnView: SCNView, context: Context) {
+        scnView.scene = scene
+        scnView.allowsCameraControl = true
+        scnView.backgroundColor = .gray
+        scnView.showsStatistics = true
+        scnView.debugOptions = .showWireframe
+    }
+    
+    func    createBox() -> SCNNode {
+        let boxGeometry = SCNBox(width: 20, height: 24, length: 40, chamferRadius: 0)
+        let box = SCNNode(geometry: boxGeometry)
+        box.name = "box"
+        return box
     }
 }
 

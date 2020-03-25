@@ -10,16 +10,14 @@ import SwiftUI
 import LocalAuthentication
 
 struct ContentView: View {
-    
-    @State private var isUnlocked = false
-    @State private var password: String = ""
+
     @EnvironmentObject var proteins: Proteins
     
     var body: some View {
         /* Code Array */
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
-            if isUnlocked {
+            if proteins.isUnlocked {
                 ResearchProteins()
             } else {
                 VStack (alignment: .center, spacing: 42) {
@@ -48,7 +46,7 @@ struct ContentView: View {
             context.evaluatePolicy(.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason) { success, authentificationError in
                 DispatchQueue.main.async {
                     if success {
-                        self.isUnlocked = true
+                        self.proteins.isUnlocked = true
                     } else {
                         print(authentificationError!)
                     }
@@ -63,6 +61,8 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView().environmentObject(Proteins(file: "ressources")).environment(\.colorScheme, .light)
+        ContentView()
+            .environmentObject(Proteins(file: "ressources"))
+            .environment(\.colorScheme, .light)
     }
 }
