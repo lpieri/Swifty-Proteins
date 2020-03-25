@@ -18,13 +18,30 @@ let CPKColor = [
     "O": UIColor(red: 1, green: 0, blue: 0, alpha: 1),
     "F": UIColor(red: 0, green: 1, blue: 0, alpha: 1),
     "CI": UIColor(red: 0, green: 1, blue: 0, alpha: 1),
-    "Br": UIColor(red: 0.6, green: 0.13, blue: 0, alpha: 1),
+    "BR": UIColor(red: 0.6, green: 0.13, blue: 0, alpha: 1),
     "I": UIColor(red: 0.4, green: 0, blue: 0.73, alpha: 1),
+    "HE": UIColor(red: 0, green: 1, blue: 1, alpha: 1),
+    "NE": UIColor(red: 0, green: 1, blue: 1, alpha: 1),
+    "AR": UIColor(red: 0, green: 1, blue: 1, alpha: 1),
+    "XE": UIColor(red: 0, green: 1, blue: 1, alpha: 1),
+    "KR": UIColor(red: 0, green: 1, blue: 1, alpha: 1),
     "P": UIColor(red: 1, green: 0.564, blue: 0, alpha: 1),
     "S": UIColor(red: 1, green: 0.898, blue: 1.33, alpha: 1),
     "B": UIColor(red: 1, green: 0.66, blue: 0.46, alpha: 1),
-    "Ti": UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),
-    "Fe": UIColor(red: 0.86, green: 0.46, blue: 0, alpha: 1),
+    "LI": UIColor(red: 0.46, green: 0, blue: 1, alpha: 1),
+    "NA": UIColor(red: 0.46, green: 0, blue: 1, alpha: 1),
+    "K": UIColor(red: 0.46, green: 0, blue: 1, alpha: 1),
+    "RB": UIColor(red: 0.46, green: 0, blue: 1, alpha: 1),
+    "CS": UIColor(red: 0.46, green: 0, blue: 1, alpha: 1),
+    "FR": UIColor(red: 0.46, green: 0, blue: 1, alpha: 1),
+    "BE": UIColor(red: 0, green: 0.46, blue: 0, alpha: 1),
+    "MG": UIColor(red: 0, green: 0.46, blue: 0, alpha: 1),
+    "CA": UIColor(red: 0, green: 0.46, blue: 0, alpha: 1),
+    "SR": UIColor(red: 0, green: 0.46, blue: 0, alpha: 1),
+    "BA": UIColor(red: 0, green: 0.46, blue: 0, alpha: 1),
+    "RA": UIColor(red: 0, green: 0.46, blue: 0, alpha: 1),
+    "TI": UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),
+    "FE": UIColor(red: 0.86, green: 0.46, blue: 0, alpha: 1),
 ]
 
 struct  Protein: Identifiable {
@@ -95,7 +112,7 @@ class   Proteins: ObservableObject {
         let atomSphere = SCNSphere(radius: 0.21)
         let atomNode = SCNNode(geometry: atomSphere)
         atomNode.position = SCNVector3(xDouble, yDouble, zDouble)
-        atomNode.geometry?.firstMaterial?.diffuse.contents = CPKColor[informations[3]]
+        atomNode.geometry?.firstMaterial?.diffuse.contents = CPKColor[informations[3].uppercased()] ?? UIColor(red: 0.86, green: 0.46, blue: 1, alpha: 1)
         return atomNode
     }
     

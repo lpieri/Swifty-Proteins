@@ -30,7 +30,7 @@ struct SceneKitView: UIViewRepresentable {
     func    updateUIView(_ scnView: SCNView, context: Context) {
         scnView.scene = scene
         scnView.allowsCameraControl = true
-        scnView.backgroundColor = .gray
+        scnView.backgroundColor = UIColor(named: "Background")
         scnView.showsStatistics = true
         scnView.debugOptions = .showWireframe
     }
