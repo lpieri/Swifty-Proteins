@@ -11,6 +11,22 @@ import Combine
 import SceneKit
 import SwiftUI
 
+let CPKColor = [
+    "H": UIColor(red: 0, green: 0, blue: 0, alpha: 1),
+    "C": UIColor(red: 1, green: 1, blue: 1, alpha: 1),
+    "N": UIColor(red: 0, green: 0, blue: 1, alpha: 1),
+    "O": UIColor(red: 1, green: 0, blue: 0, alpha: 1),
+    "F": UIColor(red: 0, green: 1, blue: 0, alpha: 1),
+    "CI": UIColor(red: 0, green: 1, blue: 0, alpha: 1),
+    "Br": UIColor(red: 0.6, green: 0.13, blue: 0, alpha: 1),
+    "I": UIColor(red: 0.4, green: 0, blue: 0.73, alpha: 1),
+    "P": UIColor(red: 1, green: 0.564, blue: 0, alpha: 1),
+    "S": UIColor(red: 1, green: 0.898, blue: 1.33, alpha: 1),
+    "B": UIColor(red: 1, green: 0.66, blue: 0.46, alpha: 1),
+    "Ti": UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1),
+    "Fe": UIColor(red: 0.86, green: 0.46, blue: 0, alpha: 1),
+]
+
 struct  Protein: Identifiable {
     
     var id: NSNumber
@@ -76,10 +92,10 @@ class   Proteins: ObservableObject {
         let xDouble = Double(informations[0])!
         let yDouble = Double(informations[1])!
         let zDouble = Double(informations[2])!
-        let atomSphere = SCNSphere(radius: 12)
+        let atomSphere = SCNSphere(radius: 0.21)
         let atomNode = SCNNode(geometry: atomSphere)
         atomNode.position = SCNVector3(xDouble, yDouble, zDouble)
-        atomNode.geometry?.firstMaterial?.diffuse.contents = UIColor.red
+        atomNode.geometry?.firstMaterial?.diffuse.contents = CPKColor[informations[3]]
         return atomNode
     }
     

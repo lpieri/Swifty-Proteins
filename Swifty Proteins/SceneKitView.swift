@@ -11,7 +11,15 @@ import SceneKit
 
 struct SceneKitView: UIViewRepresentable {
     
-    let scene = SCNScene(named: "art.scnassets/ship.scn")
+    var scene: SCNScene
+    
+    init(scene: SCNScene) {
+        self.scene = scene
+    }
+    
+    init(pathScene: String) {
+        self.scene = SCNScene(named: pathScene)!
+    }
     
     func    makeUIView(context: Context) -> SCNView {
         let sceneView = SCNView()
@@ -37,6 +45,6 @@ struct SceneKitView: UIViewRepresentable {
 
 struct SceneKitView_Previews: PreviewProvider {
     static var previews: some View {
-        SceneKitView()
+        SceneKitView(pathScene: "art.scnassets/ship.scn")
     }
 }
