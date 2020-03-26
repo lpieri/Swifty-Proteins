@@ -19,6 +19,7 @@ struct ProteinView: View {
             Color("Background").edgesIgnoringSafeArea(.all)
             VStack {
                 SceneKitView(scene: protein.scene)
+                    .edgesIgnoringSafeArea(.all)
             }.navigationBarTitle(Text(protein.name), displayMode: .inline)
             .navigationBarItems(leading: btnBack)
             .navigationBarItems(trailing: btnShare)

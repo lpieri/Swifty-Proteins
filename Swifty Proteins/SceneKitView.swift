@@ -31,10 +31,10 @@ struct SceneKitView: UIViewRepresentable {
         scnView.scene = scene
         scnView.allowsCameraControl = true
         scnView.backgroundColor = UIColor(named: "Background")
-        scnView.showsStatistics = true
-        scnView.debugOptions = .showWireframe
+//        scnView.showsStatistics = true
+//        scnView.debugOptions = .showWireframe
     }
-    
+
 }
 
 struct SceneKitView_Previews: PreviewProvider {

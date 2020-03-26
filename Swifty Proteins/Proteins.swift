@@ -12,8 +12,8 @@ import SceneKit
 import SwiftUI
 
 let CPKColor = [
-    "H": UIColor(red: 0, green: 0, blue: 0, alpha: 1),
-    "C": UIColor(red: 1, green: 1, blue: 1, alpha: 1),
+    "H": UIColor(red: 1, green: 1, blue: 1, alpha: 1),
+    "C": UIColor(red: 0, green: 0, blue: 0, alpha: 1),
     "N": UIColor(red: 0, green: 0, blue: 1, alpha: 1),
     "O": UIColor(red: 1, green: 0, blue: 0, alpha: 1),
     "F": UIColor(red: 0, green: 1, blue: 0, alpha: 1),
@@ -107,8 +107,12 @@ class   Proteins: ObservableObject {
                     }
                     if line.lengthOfBytes(using: .utf8) == 18 {
                         let dataLink = line.components(separatedBy: .whitespaces).filter({ $0 != "" })
-                        print(name.uppercased())
-                        let linkNode = self.createLink(atomOne: Int(dataLink[0])!, atomTwo: Int(dataLink[1])!, dictAtom: dictAtom)
+                        var atomOne = Int(dataLink[0])!
+                        var atomTwo = Int(dataLink[1])!
+                        if dataLink[0].lengthOfBytes(using: .utf8) >= 4 {
+                            self.splitAtom(str: dataLink[0], atomOne: &atomOne, atomTwo: &atomTwo)
+                        }
+                        let linkNode = self.createLink(atomOne: atomOne, atomTwo: atomTwo, dictAtom: dictAtom)
                         linkChildNode.addChildNode(linkNode)
                     }
                 }
@@ -117,6 +121,20 @@ class   Proteins: ObservableObject {
         scene.rootNode.addChildNode(atomChildNode)
         scene.rootNode.addChildNode(linkChildNode)
         return scene
+    }
+    
+    func    splitAtom(str: String, atomOne: inout Int, atomTwo: inout Int) {
+        var nbRight = 2
+        var nbLeft = 2
+        let size = str.lengthOfBytes(using: .utf8)
+        if size == 5 {
+            nbRight = 3
+        } else if size == 6 {
+            nbRight = 3
+            nbLeft = 3
+        }
+        atomOne = Int(String(str.dropLast(nbRight)))!
+        atomTwo = Int(String(str.dropFirst(nbLeft)))!
     }
     
     func    getCoord(informations: [String]) -> SCNVector3 {
@@ -130,20 +148,21 @@ class   Proteins: ObservableObject {
         let atomSphere = SCNSphere(radius: 0.21)
         let atomNode = SCNNode(geometry: atomSphere)
         atomNode.position = getCoord(informations: informations)
+        atomNode.name = informations[3]
         atomNode.geometry?.firstMaterial?.diffuse.contents = CPKColor[informations[3].uppercased()] ?? UIColor(red: 0.86, green: 0.46, blue: 1, alpha: 1)
         return atomNode
     }
     
     func    createLink(atomOne: Int, atomTwo: Int, dictAtom: [Int: [String]]) -> SCNNode {
-        print(atomOne, atomTwo, dictAtom)
         let atomOneCoord = getCoord(informations: dictAtom[atomOne]!)
         let atomTwoCoord = getCoord(informations: dictAtom[atomTwo]!)
         let cylinderPos = SCNVector3(atomOneCoord.x - atomTwoCoord.x, atomOneCoord.y - atomTwoCoord.y, atomOneCoord.z - atomTwoCoord.z)
         let valToSqrt = (cylinderPos.x * cylinderPos.x) + (cylinderPos.y * cylinderPos.y) + (cylinderPos.z * cylinderPos.z)
-        let h = sqrt(valToSqrt)
-        let linkCylinder = SCNCylinder(radius: 0.21, height: CGFloat(h))
+        let length = sqrt(valToSqrt)
+        let linkCylinder = SCNCylinder(radius: 0.05, height: CGFloat(length))
         let cylinderNode = SCNNode(geometry: linkCylinder)
-        cylinderNode.position = cylinderPos
+        cylinderNode.position = SCNVector3((atomOneCoord.x + atomTwoCoord.x) / 2, (atomOneCoord.y + atomTwoCoord.y) / 2, (atomOneCoord.z + atomTwoCoord.z) / 2)
+        cylinderNode.eulerAngles = SCNVector3Make(Float(Double.pi/2), acos((atomTwoCoord.z - atomOneCoord.z) / length), atan2((atomTwoCoord.y - atomOneCoord.y), (atomTwoCoord.x - atomOneCoord.x)))
         cylinderNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGray
         return cylinderNode
     }
