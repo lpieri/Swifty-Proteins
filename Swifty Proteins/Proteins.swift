@@ -87,7 +87,11 @@ class   Proteins: ObservableObject {
     
     func    createScene(name: String) -> SCNScene {
         let scene = SCNScene()
+        let atomChildNode = SCNNode()
+        let linkChildNode = SCNNode()
         let urlToGet = URL(string: "https://files.rcsb.org/ligands/view/\(name.uppercased())_model.sdf")!
+        var dictAtom = [Int: [String]]()
+        var i = 1
         URLSession.shared.dataTask(with: urlToGet) { data, response, error in
             guard let data = data else { return }
             let file = String(data: data, encoding: .utf8)
@@ -96,24 +100,52 @@ class   Proteins: ObservableObject {
                 for line in lines! {
                     if line.lengthOfBytes(using: .utf8) == 48 {
                         let informations = line.components(separatedBy: .whitespaces).filter({ $0 != "" })
+                        dictAtom[i] = informations
                         let atom = self.createAtom(informations: informations)
-                        scene.rootNode.addChildNode(atom)
+                        atomChildNode.addChildNode(atom)
+                        i += 1
+                    }
+                    if line.lengthOfBytes(using: .utf8) == 18 {
+                        let dataLink = line.components(separatedBy: .whitespaces).filter({ $0 != "" })
+                        print(name.uppercased())
+                        let linkNode = self.createLink(atomOne: Int(dataLink[0])!, atomTwo: Int(dataLink[1])!, dictAtom: dictAtom)
+                        linkChildNode.addChildNode(linkNode)
                     }
                 }
             }
         }.resume()
+        scene.rootNode.addChildNode(atomChildNode)
+        scene.rootNode.addChildNode(linkChildNode)
         return scene
     }
     
-    func    createAtom(informations: [String]) -> SCNNode {
+    func    getCoord(informations: [String]) -> SCNVector3 {
         let xDouble = Double(informations[0])!
         let yDouble = Double(informations[1])!
         let zDouble = Double(informations[2])!
+        return SCNVector3(xDouble, yDouble, zDouble)
+    }
+    
+    func    createAtom(informations: [String]) -> SCNNode {
         let atomSphere = SCNSphere(radius: 0.21)
         let atomNode = SCNNode(geometry: atomSphere)
-        atomNode.position = SCNVector3(xDouble, yDouble, zDouble)
+        atomNode.position = getCoord(informations: informations)
         atomNode.geometry?.firstMaterial?.diffuse.contents = CPKColor[informations[3].uppercased()] ?? UIColor(red: 0.86, green: 0.46, blue: 1, alpha: 1)
         return atomNode
+    }
+    
+    func    createLink(atomOne: Int, atomTwo: Int, dictAtom: [Int: [String]]) -> SCNNode {
+        print(atomOne, atomTwo, dictAtom)
+        let atomOneCoord = getCoord(informations: dictAtom[atomOne]!)
+        let atomTwoCoord = getCoord(informations: dictAtom[atomTwo]!)
+        let cylinderPos = SCNVector3(atomOneCoord.x - atomTwoCoord.x, atomOneCoord.y - atomTwoCoord.y, atomOneCoord.z - atomTwoCoord.z)
+        let valToSqrt = (cylinderPos.x * cylinderPos.x) + (cylinderPos.y * cylinderPos.y) + (cylinderPos.z * cylinderPos.z)
+        let h = sqrt(valToSqrt)
+        let linkCylinder = SCNCylinder(radius: 0.21, height: CGFloat(h))
+        let cylinderNode = SCNNode(geometry: linkCylinder)
+        cylinderNode.position = cylinderPos
+        cylinderNode.geometry?.firstMaterial?.diffuse.contents = UIColor.systemGray
+        return cylinderNode
     }
     
 }
