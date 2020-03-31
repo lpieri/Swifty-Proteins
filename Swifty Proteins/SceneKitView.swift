@@ -13,6 +13,26 @@ struct SceneKitView: UIViewRepresentable {
     
     var scene: SCNScene
     
+    class Coordinator: NSObject {
+        
+        var parent: SceneKitView
+        
+        init(_ sceneKitView: SceneKitView) {
+            self.parent = sceneKitView
+        }
+        
+        @objc func tapGesture(_ handleTap: UITapGestureRecognizer) {
+            if handleTap.state == .ended {
+                let view = handleTap.view as! SCNView
+                let location = handleTap.location(in: view)
+                let hits = view.hitTest(location, options: nil)
+                if let tappedNode = hits.first?.node {
+                    print(tappedNode.name)
+                }
+            }
+        }
+    }
+    
     init(scene: SCNScene) {
         self.scene = scene
     }
@@ -21,20 +41,24 @@ struct SceneKitView: UIViewRepresentable {
         self.scene = SCNScene(named: pathScene)!
     }
     
+    func makeCoordinator() -> Coordinator {
+        return Coordinator(self)
+    }
+    
     func    makeUIView(context: Context) -> SCNView {
         let sceneView = SCNView()
+        let gestureTap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.tapGesture(_:)))
         sceneView.scene = scene
+        sceneView.addGestureRecognizer(gestureTap)
         return sceneView
     }
     
     func    updateUIView(_ scnView: SCNView, context: Context) {
         scnView.scene = scene
         scnView.allowsCameraControl = true
+        scnView.isUserInteractionEnabled = true
         scnView.backgroundColor = UIColor(named: "Background")
-//        scnView.showsStatistics = true
-//        scnView.debugOptions = .showWireframe
     }
-
 }
 
 struct SceneKitView_Previews: PreviewProvider {
