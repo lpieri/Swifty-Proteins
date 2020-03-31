@@ -12,13 +12,19 @@ import SceneKit
 struct SceneKitView: UIViewRepresentable {
     
     var scene: SCNScene
+    @Binding var show: Bool
+    @Binding var atomSelected: String
     
     class Coordinator: NSObject {
         
         var parent: SceneKitView
+        @Binding var show: Bool
+        @Binding var atomSelected: String
         
-        init(_ sceneKitView: SceneKitView) {
+        init(_ sceneKitView: SceneKitView, show: Binding<Bool>, atomSelected: Binding<String>) {
             self.parent = sceneKitView
+            self._show = show
+            self._atomSelected = atomSelected
         }
         
         @objc func tapGesture(_ handleTap: UITapGestureRecognizer) {
@@ -27,22 +33,19 @@ struct SceneKitView: UIViewRepresentable {
                 let location = handleTap.location(in: view)
                 let hits = view.hitTest(location, options: nil)
                 if let tappedNode = hits.first?.node {
-                    print(tappedNode.name)
+                    if self.show == false {
+                        self.atomSelected = tappedNode.name!
+                        withAnimation {
+                            self.show.toggle()
+                        }
+                    }
                 }
             }
         }
     }
     
-    init(scene: SCNScene) {
-        self.scene = scene
-    }
-    
-    init(pathScene: String) {
-        self.scene = SCNScene(named: pathScene)!
-    }
-    
     func makeCoordinator() -> Coordinator {
-        return Coordinator(self)
+        return Coordinator(self, show: $show, atomSelected: $atomSelected)
     }
     
     func    makeUIView(context: Context) -> SCNView {
@@ -58,11 +61,5 @@ struct SceneKitView: UIViewRepresentable {
         scnView.allowsCameraControl = true
         scnView.isUserInteractionEnabled = true
         scnView.backgroundColor = UIColor(named: "Background")
-    }
-}
-
-struct SceneKitView_Previews: PreviewProvider {
-    static var previews: some View {
-        SceneKitView(pathScene: "art.scnassets/ship.scn")
     }
 }

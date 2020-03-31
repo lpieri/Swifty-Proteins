@@ -11,18 +11,32 @@ import SwiftUI
 struct ProteinView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State var viewState = CGSize(width: 0, height: 600)
+    @State var show = false
+    @State var atomSelected: String = ""
     var protein: Protein
     
     var body: some View {
         /* Code Array */
         ZStack {
             Color("Background").edgesIgnoringSafeArea(.all)
+            
             VStack {
-                SceneKitView(scene: protein.scene)
+                SceneKitView(scene: protein.scene, show: $show, atomSelected: $atomSelected)
                     .edgesIgnoringSafeArea(.all)
             }.navigationBarTitle(Text(protein.name), displayMode: .inline)
             .navigationBarItems(leading: btnBack)
             .navigationBarItems(trailing: btnShare)
+            
+            CardView(atomSelected: $atomSelected)
+                .gesture(
+                    TapGesture()
+                        .onEnded({
+                            self.show = false
+                        })
+                )
+                .animation(.spring())
+                .offset(y: show ? viewState.height : UIScreen.main.bounds.height)
         }
         /* End Code Array */
     }
