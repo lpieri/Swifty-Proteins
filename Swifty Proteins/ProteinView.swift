@@ -7,12 +7,12 @@
 //
 
 import SwiftUI
+import SceneKit
 
 struct ProteinView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State var viewState = CGSize(width: 0, height: 600)
-    @State var show = false
+    @State var showCardAtom = false
     @State var atomSelected: String = ""
     var protein: Protein
     
@@ -22,7 +22,7 @@ struct ProteinView: View {
             Color("Background").edgesIgnoringSafeArea(.all)
             
             VStack {
-                SceneKitView(scene: protein.scene, show: $show, atomSelected: $atomSelected)
+                SceneKitView(scene: protein.scene, show: $showCardAtom, atomSelected: $atomSelected)
                     .edgesIgnoringSafeArea(.all)
             }.navigationBarTitle(Text(protein.name), displayMode: .inline)
             .navigationBarItems(leading: btnBack)
@@ -32,11 +32,11 @@ struct ProteinView: View {
                 .gesture(
                     TapGesture()
                         .onEnded({
-                            self.show = false
+                            self.showCardAtom = false
                         })
                 )
                 .animation(.spring())
-                .offset(y: show ? viewState.height : UIScreen.main.bounds.height)
+                .offset(y: showCardAtom ? UIScreen.main.bounds.height - 300 : UIScreen.main.bounds.height)
         }
         /* End Code Array */
     }
@@ -55,7 +55,15 @@ struct ProteinView: View {
     }
     
     var btnShare: some View {
-        Button(action: {}) {
+        Button(action: {
+//            let view = SCNView()
+//            view.scene = self.protein.scene
+//            view.backgroundColor = UIColor(named: "Background")
+//            let image = view.snapshot()
+//            print(image)
+//            let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+//            UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
+        }) {
             Image(systemName: "square.and.arrow.up")
                 .foregroundColor(.blue)
         }

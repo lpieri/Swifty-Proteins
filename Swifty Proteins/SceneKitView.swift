@@ -34,9 +34,12 @@ struct SceneKitView: UIViewRepresentable {
                 let hits = view.hitTest(location, options: nil)
                 if let tappedNode = hits.first?.node {
                     if self.show == false {
-                        self.atomSelected = tappedNode.name!
-                        withAnimation {
-                            self.show.toggle()
+                        if let name = tappedNode.name {
+                            self.atomSelected = name
+                            withAnimation {
+                                self.show.toggle()
+                            }
+
                         }
                     }
                 }
@@ -53,13 +56,13 @@ struct SceneKitView: UIViewRepresentable {
         let gestureTap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.tapGesture(_:)))
         sceneView.scene = scene
         sceneView.addGestureRecognizer(gestureTap)
+        sceneView.allowsCameraControl = true
+        sceneView.isUserInteractionEnabled = true
+        sceneView.backgroundColor = UIColor(named: "Background")
         return sceneView
     }
     
     func    updateUIView(_ scnView: SCNView, context: Context) {
         scnView.scene = scene
-        scnView.allowsCameraControl = true
-        scnView.isUserInteractionEnabled = true
-        scnView.backgroundColor = UIColor(named: "Background")
     }
 }

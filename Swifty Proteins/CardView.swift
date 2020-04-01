@@ -16,6 +16,7 @@ struct CardView: View {
         ZStack {
             RoundedRectangle(cornerRadius: 30)
                 .foregroundColor(Color(UIColor.systemGray3))
+                .shadow(color: .black, radius: 30, x: 0, y: -5)
             
             VStack {
                 
@@ -36,9 +37,9 @@ struct CardView: View {
         }
     }
 }
-//
+
 //struct CardView_Previews: PreviewProvider {
 //    static var previews: some View {
-//        CardView(atomSelected: <#T##Binding<String>#>)
+//        CardView()
 //    }
 //}
