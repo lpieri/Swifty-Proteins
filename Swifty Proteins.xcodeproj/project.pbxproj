@@ -13,6 +13,13 @@
 		B74ECBB52422273400056F7D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B74ECBB42422273400056F7D /* Assets.xcassets */; };
 		B74ECBB82422273400056F7D /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = B74ECBB72422273400056F7D /* Preview Assets.xcassets */; };
 		B74ECBBB2422273400056F7D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B74ECBB92422273400056F7D /* LaunchScreen.storyboard */; };
+		B74ECBC32422277800056F7D /* ressources.txt in Resources */ = {isa = PBXBuildFile; fileRef = B74ECBC22422277800056F7D /* ressources.txt */; };
+		B74ECBC5242227A700056F7D /* ResearchProteins.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74ECBC4242227A700056F7D /* ResearchProteins.swift */; };
+		B74ECBCA242231E300056F7D /* Proteins.swift in Sources */ = {isa = PBXBuildFile; fileRef = B74ECBC9242231E300056F7D /* Proteins.swift */; };
+		B771FC74242A325400E26A7B /* ProteinView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771FC73242A325400E26A7B /* ProteinView.swift */; };
+		B771FC76242A344100E26A7B /* SceneKitView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B771FC75242A344100E26A7B /* SceneKitView.swift */; };
+		B784CFAC2422869A004EE4D4 /* SearchBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = B784CFAB2422869A004EE4D4 /* SearchBar.swift */; };
+		B7F58B4224336785002EF7AA /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7F58B4124336785002EF7AA /* CardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -24,6 +31,14 @@
 		B74ECBB72422273400056F7D /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		B74ECBBA2422273400056F7D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		B74ECBBC2422273400056F7D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		B74ECBC22422277800056F7D /* ressources.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = ressources.txt; sourceTree = "<group>"; };
+		B74ECBC4242227A700056F7D /* ResearchProteins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResearchProteins.swift; sourceTree = "<group>"; };
+		B74ECBC9242231E300056F7D /* Proteins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Proteins.swift; sourceTree = "<group>"; };
+		B771FC73242A325400E26A7B /* ProteinView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProteinView.swift; sourceTree = "<group>"; };
+		B771FC75242A344100E26A7B /* SceneKitView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneKitView.swift; sourceTree = "<group>"; };
+		B784CFAB2422869A004EE4D4 /* SearchBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchBar.swift; sourceTree = "<group>"; };
+		B7CC4061242B6FA600726CAA /* Swifty Proteins.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "Swifty Proteins.entitlements"; sourceTree = "<group>"; };
+		B7F58B4124336785002EF7AA /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,13 +71,21 @@
 		B74ECBAD2422273400056F7D /* Swifty Proteins */ = {
 			isa = PBXGroup;
 			children = (
+				B7CC4061242B6FA600726CAA /* Swifty Proteins.entitlements */,
 				B74ECBAE2422273400056F7D /* AppDelegate.swift */,
 				B74ECBB02422273400056F7D /* SceneDelegate.swift */,
 				B74ECBB22422273400056F7D /* ContentView.swift */,
+				B74ECBC4242227A700056F7D /* ResearchProteins.swift */,
 				B74ECBB42422273400056F7D /* Assets.xcassets */,
 				B74ECBB92422273400056F7D /* LaunchScreen.storyboard */,
 				B74ECBBC2422273400056F7D /* Info.plist */,
 				B74ECBB62422273400056F7D /* Preview Content */,
+				B74ECBC22422277800056F7D /* ressources.txt */,
+				B74ECBC9242231E300056F7D /* Proteins.swift */,
+				B784CFAB2422869A004EE4D4 /* SearchBar.swift */,
+				B771FC73242A325400E26A7B /* ProteinView.swift */,
+				B771FC75242A344100E26A7B /* SceneKitView.swift */,
+				B7F58B4124336785002EF7AA /* CardView.swift */,
 			);
 			path = "Swifty Proteins";
 			sourceTree = "<group>";
@@ -133,6 +156,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B74ECBC32422277800056F7D /* ressources.txt in Resources */,
 				B74ECBBB2422273400056F7D /* LaunchScreen.storyboard in Resources */,
 				B74ECBB82422273400056F7D /* Preview Assets.xcassets in Resources */,
 				B74ECBB52422273400056F7D /* Assets.xcassets in Resources */,
@@ -147,8 +171,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				B74ECBAF2422273400056F7D /* AppDelegate.swift in Sources */,
+				B7F58B4224336785002EF7AA /* CardView.swift in Sources */,
 				B74ECBB12422273400056F7D /* SceneDelegate.swift in Sources */,
+				B74ECBC5242227A700056F7D /* ResearchProteins.swift in Sources */,
+				B74ECBCA242231E300056F7D /* Proteins.swift in Sources */,
 				B74ECBB32422273400056F7D /* ContentView.swift in Sources */,
+				B784CFAC2422869A004EE4D4 /* SearchBar.swift in Sources */,
+				B771FC76242A344100E26A7B /* SceneKitView.swift in Sources */,
+				B771FC74242A325400E26A7B /* ProteinView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -284,18 +314,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Swifty Proteins/Swifty Proteins.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Swifty Proteins/Preview Content\"";
+				DEVELOPMENT_TEAM = EV49Z586CH;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Swifty Proteins/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "louise.lgbt.Swifty-Proteins";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -303,18 +337,22 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "Swifty Proteins/Swifty Proteins.entitlements";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"Swifty Proteins/Preview Content\"";
+				DEVELOPMENT_TEAM = EV49Z586CH;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = "Swifty Proteins/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "louise.lgbt.Swifty-Proteins";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = NO;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
