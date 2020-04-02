@@ -73,7 +73,7 @@ class   Proteins: ObservableObject {
         self.proteins = [Protein]()
         if let fileUrl = Bundle.main.url(forResource: file, withExtension: ".txt") {
             if let fileContent = try? String(contentsOf: fileUrl) {
-                let proteinsTable = fileContent.components(separatedBy: .newlines)
+                let proteinsTable = fileContent.components(separatedBy: .newlines).filter({ $0 != "" })
                 var i: Int = 0
                 for proteinsName in proteinsTable {
                     let sceneProtein = createScene(name: proteinsName)
