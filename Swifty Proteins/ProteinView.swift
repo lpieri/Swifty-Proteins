@@ -13,6 +13,8 @@ struct ProteinView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
     @State var showCardAtom = false
+    @State var showAlert = false
+    @State var showSpinningWheel = true
     @State var atomSelected: String = ""
     var protein: Protein
     
@@ -37,7 +39,18 @@ struct ProteinView: View {
                 )
                 .animation(.spring())
                 .offset(y: showCardAtom ? UIScreen.main.bounds.height - 300 : UIScreen.main.bounds.height)
+            
+            if showSpinningWheel {
+                SpinnigWheelView(isShowing: $showSpinningWheel)
+            }
         }
+        .alert(isPresented: $showAlert, content: {
+            Alert(title: Text("Protein Error"), message: Text("The sight of the ligand couldn't be loaded..."), dismissButton: .cancel({
+                self.presentationMode.wrappedValue.dismiss()
+            }))
+        })
+        .onAppear(perform: checkProteinScene)
+        .onAppear(perform: spinningWheel)
         /* End Code Array */
     }
     
@@ -71,6 +84,19 @@ struct ProteinView: View {
     /* End Other View */
     
     /* Functions */
+    func    spinningWheel() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+            self.showSpinningWheel = false
+        }
+    }
+    
+    func    checkProteinScene() {
+        let scene = self.protein.scene
+        let node = scene.rootNode.childNode(withName: "atomNode", recursively: true)
+        if node?.childNodes.count == 0 {
+            self.showAlert = true
+        }
+    }
     /* End Functions */
 }
 

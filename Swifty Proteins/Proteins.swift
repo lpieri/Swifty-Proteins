@@ -92,6 +92,8 @@ class   Proteins: ObservableObject {
         let urlToGet = URL(string: "https://files.rcsb.org/ligands/view/\(name.uppercased())_model.sdf")!
         var dictAtom = [Int: [String]]()
         var i = 1
+        atomChildNode.name = "atomNode"
+        linkChildNode.name = "linkNode"
         URLSession.shared.dataTask(with: urlToGet) { data, response, error in
             guard let data = data else { return }
             let file = String(data: data, encoding: .utf8)
