@@ -69,13 +69,11 @@ struct ProteinView: View {
     
     var btnShare: some View {
         Button(action: {
-//            let view = SCNView()
-//            view.scene = self.protein.scene
-//            view.backgroundColor = UIColor(named: "Background")
-//            let image = view.snapshot()
-//            print(image)
-//            let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-//            UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
+            let render = SCNRenderer(device: .none, options: .none)
+            render.scene = self.protein.scene
+            let image = render.snapshot(atTime: 0, with: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), antialiasingMode: .multisampling4X)
+            let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+            UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
         }) {
             Image(systemName: "square.and.arrow.up")
                 .foregroundColor(.blue)
