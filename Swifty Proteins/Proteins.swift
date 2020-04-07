@@ -12,7 +12,7 @@ import SceneKit
 import SwiftUI
 
 let CPKColor = [
-    "H": UIColor(red: 1, green: 1, blue: 1, alpha: 1),
+    "H": UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1),
     "C": UIColor(red: 0, green: 0, blue: 0, alpha: 1),
     "N": UIColor(red: 0, green: 0, blue: 1, alpha: 1),
     "O": UIColor(red: 1, green: 0, blue: 0, alpha: 1),

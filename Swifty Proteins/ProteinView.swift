@@ -12,6 +12,8 @@ import SceneKit
 struct ProteinView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
+    @State var pointOfView = SCNNode()
+    @State var pointer = UnsafeMutablePointer<SCNNode>.allocate(capacity: 1)
     @State var showCardAtom = false
     @State var showAlert = false
     @State var showSpinningWheel = true
@@ -24,7 +26,7 @@ struct ProteinView: View {
             Color("Background").edgesIgnoringSafeArea(.all)
             
             VStack {
-                SceneKitView(scene: protein.scene, show: $showCardAtom, atomSelected: $atomSelected)
+                SceneKitView(scene: protein.scene, show: $showCardAtom, atomSelected: $atomSelected, pointer: pointer)
                     .edgesIgnoringSafeArea(.all)
             }.navigationBarTitle(Text(protein.name), displayMode: .inline)
             .navigationBarItems(leading: btnBack)
@@ -69,11 +71,17 @@ struct ProteinView: View {
     
     var btnShare: some View {
         Button(action: {
-            let render = SCNRenderer(device: .none, options: .none)
-            render.scene = self.protein.scene
-            let image = render.snapshot(atTime: 0, with: CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height), antialiasingMode: .multisampling4X)
-            let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
-            UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
+            self.showSpinningWheel = true
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
+                self.showSpinningWheel = false
+                let render = SCNRenderer(device: MTLCreateSystemDefaultDevice(), options: .none)
+                render.scene = self.protein.scene
+                render.pointOfView = self.pointer.pointee
+                let size = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+                let image = render.snapshot(atTime: 0, with: size, antialiasingMode: .multisampling4X)
+                let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+                UIApplication.shared.windows.first?.rootViewController?.present(av, animated: true, completion: nil)
+            }
         }) {
             Image(systemName: "square.and.arrow.up")
                 .foregroundColor(.blue)
@@ -103,3 +111,6 @@ struct ProteinView_Previews: PreviewProvider {
         ProteinView(protein: Protein())
     }
 }
+
+
+/////

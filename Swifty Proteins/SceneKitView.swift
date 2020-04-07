@@ -11,9 +11,24 @@ import SceneKit
 
 struct SceneKitView: UIViewRepresentable {
     
+    var view = SCNView()
     var scene: SCNScene
     @Binding var show: Bool
     @Binding var atomSelected: String
+    var pointer: UnsafeMutablePointer<SCNNode>
+    
+    
+    init(scene: SCNScene, show: Binding<Bool>, atomSelected: Binding<String>, pointer: UnsafeMutablePointer<SCNNode>) {
+        self.scene = scene
+        self._show = show
+        self._atomSelected = atomSelected
+        self.pointer = pointer
+        view.scene = self.scene
+        view.allowsCameraControl = true
+        view.isUserInteractionEnabled = true
+        view.backgroundColor = UIColor(named: "Background")
+        view.antialiasingMode = .multisampling4X
+    }
     
     class Coordinator: NSObject {
         
@@ -52,17 +67,14 @@ struct SceneKitView: UIViewRepresentable {
     }
     
     func    makeUIView(context: Context) -> SCNView {
-        let sceneView = SCNView()
+        let sceneView = self.view
         let gestureTap = UITapGestureRecognizer(target: context.coordinator, action: #selector(Coordinator.tapGesture(_:)))
-        sceneView.scene = scene
         sceneView.addGestureRecognizer(gestureTap)
-        sceneView.allowsCameraControl = true
-        sceneView.isUserInteractionEnabled = true
-        sceneView.backgroundColor = UIColor(named: "Background")
         return sceneView
     }
     
     func    updateUIView(_ scnView: SCNView, context: Context) {
         scnView.scene = scene
+        pointer.initialize(to: scnView.defaultCameraController.pointOfView!)
     }
 }
