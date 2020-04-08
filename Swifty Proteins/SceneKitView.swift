@@ -75,6 +75,8 @@ struct SceneKitView: UIViewRepresentable {
     
     func    updateUIView(_ scnView: SCNView, context: Context) {
         scnView.scene = scene
-        pointer.initialize(to: scnView.defaultCameraController.pointOfView!)
+        if let pov = scnView.defaultCameraController.pointOfView {
+            pointer.initialize(to: pov)
+        }
     }
 }

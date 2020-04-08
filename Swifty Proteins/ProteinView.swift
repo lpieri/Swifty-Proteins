@@ -12,7 +12,6 @@ import SceneKit
 struct ProteinView: View {
     
     @Environment(\.presentationMode) var presentationMode: Binding<PresentationMode>
-    @State var pointOfView = SCNNode()
     @State var pointer = UnsafeMutablePointer<SCNNode>.allocate(capacity: 1)
     @State var showCardAtom = false
     @State var showAlert = false
@@ -37,10 +36,11 @@ struct ProteinView: View {
                     TapGesture()
                         .onEnded({
                             self.showCardAtom = false
+                            self.atomSelected = ""
                         })
                 )
                 .animation(.spring())
-                .offset(y: showCardAtom ? UIScreen.main.bounds.height - 300 : UIScreen.main.bounds.height)
+                .offset(y: showCardAtom ? UIScreen.main.bounds.height - 300 : UIScreen.main.bounds.height + 300)
             
             if showSpinningWheel {
                 SpinnigWheelView(isShowing: $showSpinningWheel)
@@ -77,6 +77,7 @@ struct ProteinView: View {
                 let render = SCNRenderer(device: MTLCreateSystemDefaultDevice(), options: .none)
                 render.scene = self.protein.scene
                 render.pointOfView = self.pointer.pointee
+                render.isJitteringEnabled = true
                 let size = CGSize(width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
                 let image = render.snapshot(atTime: 0, with: size, antialiasingMode: .multisampling4X)
                 let av = UIActivityViewController(activityItems: [image], applicationActivities: nil)
@@ -111,6 +112,3 @@ struct ProteinView_Previews: PreviewProvider {
         ProteinView(protein: Protein())
     }
 }
-
-
-/////
