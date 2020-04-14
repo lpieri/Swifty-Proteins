@@ -28,13 +28,26 @@ The technologies I used to make this project happen are:
  - iOS 13.4
  - SceneKit
 
+## Bonus
+
+ - Dark Mode
+ - Design View
+ - Custom Cell
+ - Custom Pop Up
+
+---
+
 ## Views
 
 <div align="center">
-<img src="assets/launchscreen.png" alt="The Swifty Proteins Project"  width="300"/>
-<img src="assets/login.png" alt="The Swifty Proteins Project"  width="300"/>
-<img src="assets/list-view.png" alt="The Swifty Proteins Project"  width="300"/>
-<img src="assets/protein-view.png" alt="The Swifty Proteins Project"  width="300"/>
-<img src="assets/atom-selected-view.png" alt="The Swifty Proteins Project"  width="300"/>
-<img src="assets/share-view.png" alt="The Swifty Proteins Project"  width="300"/>
+<img src="assets/launchscreen.png" alt="Screenshot of the launch screen view"  width="300"/>
+<img src="assets/login.png" alt="Screenshot of the login view with FaceID authentication"  width="300"/>
+<img src="assets/list-view.png" alt="Screenshot of the proteins list view"  width="300"/>
+<img src="assets/protein-view.png" alt="Screenshot of the proteins 3D view"  width="300"/>
+<img src="assets/atom-selected-view.png" alt="Screenshot of the proteins 3D view with atom name"  width="300"/>
+<img src="assets/loading-view.png" alt="Screenshot of the loading view"  width="300"/>
+<img src="assets/share-view.png" alt="Screenshot of the share sheet openning"  width="300"/>
 </div>
+
+
+
