@@ -76,10 +76,12 @@ class   Proteins: ObservableObject {
                 let proteinsTable = fileContent.components(separatedBy: .newlines).filter({ $0 != "" })
                 var i: Int = 0
                 for proteinsName in proteinsTable {
-                    let sceneProtein = createScene(name: proteinsName)
-                    let newProtein = Protein(id: NSNumber(value: i), name: proteinsName, scene: sceneProtein)
-                    self.proteins.append(newProtein)
-                    i += 1
+                    DispatchQueue.main.async {
+                        let sceneProtein = self.createScene(name: proteinsName)
+                        let newProtein = Protein(id: NSNumber(value: i), name: proteinsName, scene: sceneProtein)
+                        self.proteins.append(newProtein)
+                        i += 1
+                    }
                 }
             }
         }

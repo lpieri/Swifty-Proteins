@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Image" translatesAutoresizingMaskIntoConstraints="NO" id="RX7-yg-fap">
-                                <rect key="frame" x="0.0" y="293" width="414" height="222"/>
+                                <rect key="frame" x="0.0" y="337" width="414" height="222"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="222" id="YVY-rO-JzO"/>
                                 </constraints>
@@ -25,9 +25,9 @@
                         </subviews>
                         <color key="backgroundColor" name="Background"/>
                         <constraints>
-                            <constraint firstItem="RX7-yg-fap" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="top" constant="293" id="Mh6-lt-xyl"/>
                             <constraint firstItem="RX7-yg-fap" firstAttribute="leading" secondItem="Ze5-6b-2t3" secondAttribute="leading" id="amT-zr-0Os"/>
                             <constraint firstItem="RX7-yg-fap" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="gm9-xF-5nP"/>
+                            <constraint firstItem="RX7-yg-fap" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="xvs-uQ-RYO"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
