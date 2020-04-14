@@ -1,17 +1,23 @@
-<div align="center"><img src="assets/logo.png" alt="Swifty Proteins Logo"  width="210"/></div>
+<h1 align="center">
+<br>
+<img src="assets/logo.png" alt="The Swifty Proteins Project"  width="400"/>
+<br>
+</h1>
 
-<h1 align="center">Swifty-Proteins</h1>
+<h3 align="center">Project 42, where we have to create an iOS application from scratch.</h3>
 
-Project 42, where we have to create an iOS application from scratch.
+---
 
-The application must contain:
+## Description
+
+This application contain:
  - 3D views of proteins with the Apple SceneKit framework.
  - A LaunchScreen and an icon
  - Authentication via FaceID or TouchID
  - A menu to share a protein view
  - ...
 
-<h2 align="center"><b>Technologies</b></h2>
+## Technologies
 
 The technologies I used to make this project happen are:
  - SwiftUI
