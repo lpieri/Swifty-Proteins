@@ -1,7 +1,6 @@
 <div align="center"><img src="assets/logo.png" alt="Swifty Proteins Logo"  width="210"/></div>
 
-
-# Swifty-Proteins
+<h1 align="center">Swifty-Proteins</h1>
 
 Project 42, where we have to create an iOS application from scratch.
 
@@ -12,7 +11,7 @@ The application must contain:
  - A menu to share a protein view
  - ...
 
-## Technologies
+<h2 align="center"><b>Technologies</b></h2>
 
 The technologies I used to make this project happen are:
  - SwiftUI
