@@ -8,6 +8,7 @@
 
 import SwiftUI
 import SceneKit
+import MetalKit
 
 struct ProteinView: View {
     
@@ -74,7 +75,11 @@ struct ProteinView: View {
             self.showSpinningWheel = true
             DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) {
                 self.showSpinningWheel = false
-                let render = SCNRenderer(device: MTLCreateSystemDefaultDevice(), options: .none)
+                #if targetEnvironment(simulator)
+                    let render = SCNRenderer(context: .none, options: .none)
+                #else
+                    let render = SCNRenderer(device: MTLCreateSystemDefaultDevice(), options: .none)
+                #endif
                 render.scene = self.protein.scene
                 render.pointOfView = self.pointer.pointee
                 render.isJitteringEnabled = true
