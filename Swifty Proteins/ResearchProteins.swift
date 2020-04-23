@@ -20,15 +20,12 @@ struct ResearchProteins: View {
                 Color("Background").edgesIgnoringSafeArea(.all)
                 /* Body */
                 VStack (alignment: .leading) {
-                    TextField("Research Proteins", text: $searchValue)
-                        .font(.headline)
-                        .padding()
-                        .overlay(RoundedRectangle(cornerRadius: 30).stroke(Color.gray))
-                        .shadow(radius: 30)
-                    
+
+                    SearchBar(text: $searchValue)
+
                     List {
                         ForEach (proteins.proteins.filter {
-                            searchValue.isEmpty ? true : $0.name.contains(searchValue)
+                            searchValue.isEmpty ? true : $0.name.contains(searchValue.uppercased())
                         }, id: \.id) { protein in
                             NavigationLink(destination: ProteinView(protein: protein)) {
                                 Text(protein.name)

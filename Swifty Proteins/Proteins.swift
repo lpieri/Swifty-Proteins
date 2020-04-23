@@ -6,8 +6,6 @@
 //  Copyright © 2020 Louise Pieri. All rights reserved.
 //
 
-import Foundation
-import Combine
 import SceneKit
 import SwiftUI
 

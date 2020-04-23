@@ -20,7 +20,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Create the SwiftUI view that provides the window contents.
-        Thread.sleep(forTimeInterval: 3.0)
         let contentView = ContentView().environmentObject(proteins)
 
         // Use a UIHostingController as window root view controller.
