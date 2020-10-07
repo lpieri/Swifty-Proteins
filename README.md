@@ -49,5 +49,8 @@ The technologies I used to make this project happen are:
 <img src="assets/share-view.png" alt="Screenshot of the share sheet openning"  width="300"/>
 </div>
 
+## Contributor
+
+[Louise Pieri](https://github.com/lpieri)
 
 
