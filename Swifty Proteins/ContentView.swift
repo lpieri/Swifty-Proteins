@@ -35,7 +35,7 @@ struct ContentView: View {
                             }.frame(width: 100, height: 100)
                         }
                         .alert(isPresented: $showAlert) {
-                            Alert(title: Text("Face ID Error"), message: Text(textAlert), dismissButton: .cancel()!)
+                            Alert(title: Text("Face ID Error"), message: Text(textAlert), dismissButton: .cancel())
                         }
                     } else {
                         Button(action: {

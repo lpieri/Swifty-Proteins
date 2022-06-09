@@ -29,7 +29,6 @@ struct ProteinView: View {
                 SceneKitView(scene: protein.scene, show: $showCardAtom, atomSelected: $atomSelected, pointer: pointer)
                     .edgesIgnoringSafeArea(.all)
             }.navigationBarTitle(Text(protein.name), displayMode: .inline)
-            .navigationBarItems(leading: btnBack)
             .navigationBarItems(trailing: btnShare)
             
             CardView(atomSelected: $atomSelected)
@@ -58,18 +57,6 @@ struct ProteinView: View {
     }
     
     /* Other View */
-    var btnBack: some View {
-        Button(action: {
-            self.presentationMode.wrappedValue.dismiss()
-        }) {
-            HStack {
-                Image(systemName: "chevron.left")
-                    .foregroundColor(.blue)
-                Text("Back")
-            }
-        }
-    }
-    
     var btnShare: some View {
         Button(action: {
             self.showSpinningWheel = true

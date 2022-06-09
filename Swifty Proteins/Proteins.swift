@@ -66,7 +66,7 @@ class   Proteins: ObservableObject {
     
     @Published var proteins: [Protein]
     @Published var isUnlocked: Bool = false
-
+    
     init(file: String) {
         self.proteins = [Protein]()
         if let fileUrl = Bundle.main.url(forResource: file, withExtension: ".txt") {
@@ -100,14 +100,14 @@ class   Proteins: ObservableObject {
             let lines = file?.components(separatedBy: .newlines)
             if lines![0] == name.uppercased() {
                 for line in lines! {
-                    if line.lengthOfBytes(using: .utf8) == 48 {
+                    if line.lengthOfBytes(using: .utf8) == 69 {
                         let informations = line.components(separatedBy: .whitespaces).filter({ $0 != "" })
                         dictAtom[i] = informations
                         let atom = self.createAtom(informations: informations)
                         atomChildNode.addChildNode(atom)
                         i += 1
                     }
-                    if line.lengthOfBytes(using: .utf8) == 18 {
+                    if line.lengthOfBytes(using: .utf8) == 21 {
                         let dataLink = line.components(separatedBy: .whitespaces).filter({ $0 != "" })
                         var atomOne = Int(dataLink[0])!
                         var atomTwo = Int(dataLink[1])!
@@ -116,6 +116,9 @@ class   Proteins: ObservableObject {
                         }
                         let linkNode = self.createLink(atomOne: atomOne, atomTwo: atomTwo, dictAtom: dictAtom)
                         linkChildNode.addChildNode(linkNode)
+                    }
+                    if line == "M  END" {
+                        break
                     }
                 }
             }
